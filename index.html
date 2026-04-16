@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Minh-Nexus - Đỗ Đức Minh 3B</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a, #000000); /* Màu xanh đen ngầu */
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Màn hình chính */
+        #desktop {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Cửa sổ GitHub lồng nhau */
+        .window {
+            width: 80%;
+            height: 70%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .title-bar {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+        }
+
+        /* Thanh Taskbar */
+        #taskbar {
+            height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: center;
+        }
+
+        #start-button {
+            background: #2563eb;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        #start-button:hover {
+            background: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        .welcome-msg {
+            position: absolute;
+            top: 20px;
+            font-size: 24px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="desktop">
+        <div class="welcome-msg">🚀 Windows Minh-Nexus OS - Đỗ Đức Minh 3B</div>
+
+        <!-- Đây là phần GitHub trong GitHub của sếp -->
+        <div class="window">
+            <div class="title-bar">
+                <span>GitHub Browser - Biện Thượng Edition</span>
+                <span>✖ 🗗 ➖</span>
+            </div>
+            <iframe src="https://github.com"></iframe>
+        </div>
+    </div>
+
+    <div id="taskbar">
+        <button id="start-button" onclick="alert('Chào sếp Minh 3B! Chúc sếp code giỏi, ăn nem chua ngon nhé!')">M (Start)</button>
+    </div>
+
+</body>
+</html>
