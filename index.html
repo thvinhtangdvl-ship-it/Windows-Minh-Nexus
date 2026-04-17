@@ -5,33 +5,29 @@
     <title>Windows Minh-Nexus</title>
     <style>
         body { margin: 0; background: linear-gradient(135deg, #ffcc00, #ff66cc); font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; }
-        
-        /* Màn hình khởi động */
         #boot-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 3000; display: flex; justify-content: center; align-items: center; font-size: 24px; color: white; }
-        
-        /* Desktop */
         #desktop { height: calc(100vh - 50px); padding: 20px; position: relative; display: none; }
-        .desktop-item { width: 80px; text-align: center; cursor: pointer; color: white; font-weight: bold; text-shadow: 1px 1px 2px black; }
+        
+        /* Desktop Item: Fix lỗi 2 chữ */
+        .desktop-item { width: 100px; text-align: center; cursor: pointer; color: white; font-weight: bold; text-shadow: 1px 1px 2px black; }
         .desktop-item img { width: 50px; height: 50px; display: block; margin: 0 auto 5px; }
 
-        /* Cửa sổ kéo thả */
         .window { position: absolute; top: 100px; left: 100px; width: 450px; height: 300px; background: white; border-radius: 8px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 1px solid #999; z-index: 100; }
-        .title-bar { background: #f0f0f0; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom: 1px solid #ccc; }
-        .controls { display: flex; gap: 15px; align-items: center; }
+        .title-bar { background: #f0f0f0; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-radius: 8px 8px 0 0; border-bottom: 1px solid #ccc; }
+        
+        /* Các nút điều khiển hoạt động */
+        .controls span { cursor: pointer; padding: 0 5px; font-weight: bold; }
+        .controls span:hover { background: #ddd; }
+
         .content { padding: 20px; flex: 1; font-size: 18px; overflow: auto; }
 
-        /* Start Menu */
-        #start-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 60px; color: white; }
+        #start-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 60px; color: white; }
         .start-apps { display: grid; grid-template-columns: repeat(2, 140px); gap: 30px; margin-bottom: 50px; }
         .app-item { cursor: pointer; text-align: center; }
         .app-item img { width: 60px; height: 60px; margin-bottom: 10px; }
-        .power-btns { display: flex; gap: 20px; }
-        .power-btn { padding: 10px 20px; border: 1px solid white; cursor: pointer; border-radius: 5px; }
-
-        /* Taskbar */
+        
         #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; gap: 25px; }
-        .task-icon { width: 35px; height: 35px; cursor: pointer; transition: 0.2s; }
-        .task-icon:hover { transform: scale(1.2); }
+        .task-icon { width: 35px; height: 35px; cursor: pointer; }
 
         #shutdown-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: none; z-index: 4000; justify-content: center; align-items: center; font-size: 35px; color: white; }
     </style>
@@ -41,15 +37,18 @@
     <div id="boot-screen">Starting windows minh nexus...</div>
 
     <div id="desktop">
-        <div class="desktop-item" onclick="openWin('Recycle Bin', 'no times', 'https://icons8.com')">
-            <img src="https://icons8.com"> Recycle Bin
+        <div class="desktop-item" onclick="openWin('Recycle Bin', 'no times')">
+            <img src="https://icons8.com"> 
+            Recycle Bin
         </div>
 
         <div id="win" class="window">
             <div class="title-bar" id="winHeader">
                 <span id="win-title">Cửa sổ</span>
                 <div class="controls">
-                    <span style="cursor:default;">-</span> <span style="cursor:default;">🟦</span> <span style="color:red; cursor:pointer; font-weight:bold;" onclick="closeWin()">X</span>
+                    <span onclick="alert('Cửa sổ đã thu nhỏ!')">-</span> 
+                    <span onclick="alert('Cửa sổ đã phóng to!')">🟦</span> 
+                    <span style="color:red;" onclick="closeWin()">X</span>
                 </div>
             </div>
             <div class="content" id="win-content"></div>
@@ -57,7 +56,7 @@
     </div>
 
     <div id="start-menu">
-        <h1 style="margin-bottom: 40px; color: #ffcc00;">START MENU</h1>
+        <h1>START MENU</h1>
         <div class="start-apps">
             <div class="app-item" onclick="openWin('Edge', '://bing.com đã từ chối kết nối.')">
                 <img src="https://icons8.com"><br>Edge
@@ -72,19 +71,18 @@
                 <img src="https://icons8.com"><br>Explorer
             </div>
         </div>
-        <div class="power-btns">
-            <div class="power-btn" onclick="shutDown()">Shutdown</div>
-            <div class="power-btn" onclick="alert('error')">Restart</div>
-            <div class="power-btn" onclick="alert('error')">Sleep</div>
+        <div style="display:flex; gap:20px;">
+            <button onclick="shutDown()" style="padding:10px;">Shutdown</button>
+            <button onclick="alert('error')" style="padding:10px;">Restart</button>
+            <button onclick="alert('error')" style="padding:10px;">Sleep</button>
         </div>
-        <p onclick="toggleStart()" style="cursor:pointer; margin-top:40px; color:#ff66cc;">[ Quay lại Desktop ]</p>
+        <p onclick="toggleStart()" style="cursor:pointer; margin-top:40px;">[ Close ]</p>
     </div>
 
     <div id="taskbar">
         <img src="https://icons8.com" class="task-icon" onclick="toggleStart()">
         <img src="https://icons8.com" class="task-icon" onclick="openWin('Edge', '://bing.com đã từ chối kết nối.')">
         <img src="https://icons8.com" class="task-icon" onclick="openWin('Explorer', 'no files')">
-        <img src="https://icons8.com" class="task-icon" onclick="openWin('Store', 'chưa có gì ở đây cả😉')">
     </div>
 
     <div id="shutdown-screen">Shutting down...</div>
@@ -115,6 +113,7 @@
             setTimeout(() => { location.reload(); }, 3000);
         }
 
+        // Kéo thả
         dragElement(document.getElementById("win"));
         function dragElement(elmnt) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
