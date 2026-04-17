@@ -2,91 +2,106 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Windows Minh-Nexus OS</title>
+    <title>Windows Minh-Nexus Pro</title>
     <style>
         body {
             margin: 0;
-            background: #000; /* Nền đen cho chuyên nghiệp */
-            color: #00ff00; /* Chữ màu xanh giống Hacker */
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
+            background: url('https://freepik.com') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
             height: 100vh;
             overflow: hidden;
         }
-        /* Hiệu ứng tên sếp Minh bay qua bay lại */
-        marquee {
-            font-size: 30px;
-            font-weight: bold;
-            background: rgba(0, 0, 255, 0.2);
-            padding: 10px;
-        }
+
+        /* Thùng rác trên Desktop */
         #desktop {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle, #1a1a1a, #000);
+            padding: 20px;
+            height: calc(100vh - 50px);
         }
-        .window-box {
-            width: 90%;
-            height: 80%;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-        }
-        .title-bar {
-            background: #00ff00;
-            color: #000;
-            padding: 5px 15px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-        iframe {
-            flex: 1;
-            border: none;
-            background: white;
-        }
-        /* Thanh Taskbar dưới cùng */
-        #taskbar {
-            height: 45px;
-            background: #333;
-            display: flex;
-            align-items: center;
-            padding-left: 10px;
-        }
-        .start-btn {
-            background: #ff0000;
+        .icon-desktop {
+            width: 70px;
+            text-align: center;
             color: white;
-            border: none;
-            padding: 5px 15px;
-            font-weight: bold;
             cursor: pointer;
+            font-size: 12px;
+        }
+        .icon-desktop img { width: 50px; display: block; margin: 0 auto 5px; }
+
+        /* Taskbar Windows 11 (Căn giữa) */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center; /* Windows 11 style */
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-icon {
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .task-icon:hover { transform: scale(1.2); }
+
+        /* Nút Start Windows 10 (Hình vuông) */
+        .start-btn {
+            background-image: url('https://wikimedia.org'); /* Tạm thời lấy logo MS */
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Menu Start Full Màn Hình */
+        #start-menu {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none; /* Ẩn đi khi chưa bấm */
+            z-index: 100;
+            color: white;
+            text-align: center;
+            padding-top: 100px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Chữ bay cho oai -->
-    <marquee>🚀 CHÀO MỪNG ĐẾN VỚI WINDOWS MINH-NEXUS - PHÁT TRIỂN BỞI ĐỖ ĐỨC MINH LỚP 3B 🚀</marquee>
-
     <div id="desktop">
-        <div class="window-box">
-            <div class="title-bar">
-                <span>GitHub_System_v1.0.exe</span>
-                <span>[ _ □ X ]</span>
-            </div>
-            <!-- Chỗ này nhúng GitHub của sếp nè -->
-            <iframe src="https://github.com"></iframe>
+        <div class="icon-desktop" onclick="alert('Thùng rác trống rỗng!')">
+            <img src="https://flaticon.com" alt="Recycle Bin">
+            Recycle Bin
         </div>
     </div>
 
+    <!-- Menu Start Full Screen -->
+    <div id="start-menu" onclick="this.style.display='none'">
+        <h1>WINDOWS 10 START MENU (FULL SCREEN)</h1>
+        <p>Chào mừng Đỗ Đức Minh lớp 3B</p>
+        <div style="display: grid; grid-template-columns: repeat(4, 100px); justify-content: center; gap: 20px; padding: 20px;">
+            <div style="background: #0078d7; width: 100px; height: 100px;">Game</div>
+            <div style="background: #0078d7; width: 100px; height: 100px;">Học tập</div>
+            <div style="background: #0078d7; width: 100px; height: 100px;">Ảnh</div>
+            <div style="background: #0078d7; width: 100px; height: 100px;">Nhạc</div>
+        </div>
+        <p>(Bấm vào bất cứ đâu để đóng)</p>
+    </div>
+
     <div id="taskbar">
-        <button class="start-btn" onclick="alert('Hệ điều hành của sếp Minh đã sẵn sàng!')">MINH START</button>
-        <span style="margin-left: 20px;">Xóm 5 Biện Thượng đang online...</span>
+        <!-- Start hình Windows 10 -->
+        <img src="https://flaticon.com" class="task-icon" onclick="document.getElementById('start-menu').style.display='block'">
+        
+        <!-- Các icon không chữ -->
+        <img src="https://flaticon.com" class="task-icon" title="Edge">
+        <img src="https://flaticon.com" class="task-icon" title="File Explorer">
+        <img src="https://flaticon.com" class="task-icon" title="Store">
     </div>
 
 </body>
