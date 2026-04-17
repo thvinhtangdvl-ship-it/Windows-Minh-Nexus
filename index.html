@@ -6,6 +6,7 @@
     <style>
         body {
             margin: 0;
+            /* Hình nền Windows 11 xịn */
             background: url('https://freepik.com') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Segoe UI', sans-serif;
@@ -13,96 +14,89 @@
             overflow: hidden;
         }
 
-        /* Thùng rác trên Desktop */
-        #desktop {
-            padding: 20px;
-            height: calc(100vh - 50px);
-        }
-        .icon-desktop {
-            width: 70px;
-            text-align: center;
-            color: white;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .icon-desktop img { width: 50px; display: block; margin: 0 auto 5px; }
+        #desktop { padding: 20px; height: calc(100vh - 60px); position: relative; }
+        
+        /* Icon trên Desktop */
+        .icon-desktop { width: 80px; text-align: center; color: white; cursor: pointer; text-shadow: 1px 1px 3px black; }
+        .icon-desktop img { width: 50px; height: 50px; display: block; margin: 0 auto 5px; }
 
-        /* Taskbar Windows 11 (Căn giữa) */
+        /* Cửa sổ */
+        .window {
+            position: absolute; top: 15%; left: 25%;
+            width: 50%; height: 50%;
+            background: white; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none; flex-direction: column; z-index: 10;
+            border: 1px solid #ccc;
+        }
+        .title-bar { background: #f1f1f1; padding: 10px; display: flex; justify-content: space-between; border-radius: 8px 8px 0 0; color: #333; font-weight: bold; }
+        .close-btn { color: red; cursor: pointer; padding: 0 5px; }
+        .content { flex: 1; padding: 20px; color: black; font-size: 18px; }
+
+        /* Taskbar Windows 11 căn giữa */
         #taskbar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center; /* Windows 11 style */
-            align-items: center;
-            gap: 10px;
+            position: fixed; bottom: 0; width: 100%; height: 50px;
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(12px);
+            display: flex; justify-content: center; align-items: center; gap: 12px;
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
+        .task-icon { width: 36px; height: 36px; cursor: pointer; transition: 0.2s; padding: 2px; }
+        .task-icon:hover { transform: scale(1.2); background: rgba(255,255,255,0.2); border-radius: 5px; }
 
-        .task-icon {
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .task-icon:hover { transform: scale(1.2); }
-
-        /* Nút Start Windows 10 (Hình vuông) */
-        .start-btn {
-            background-image: url('https://wikimedia.org'); /* Tạm thời lấy logo MS */
-            background-size: contain;
-            background-repeat: no-repeat;
-            width: 30px;
-            height: 30px;
-        }
-
-        /* Menu Start Full Màn Hình */
+        /* Start Menu Full */
         #start-menu {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: none; /* Ẩn đi khi chưa bấm */
-            z-index: 100;
-            color: white;
-            text-align: center;
-            padding-top: 100px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); display: none; z-index: 100;
+            color: white; text-align: center; padding-top: 80px;
         }
     </style>
 </head>
 <body>
 
     <div id="desktop">
-        <div class="icon-desktop" onclick="alert('Thùng rác trống rỗng!')">
-            <img src="https://flaticon.com" alt="Recycle Bin">
+        <div class="icon-desktop" onclick="openWindow('Recycle Bin', 'Thùng rác của sếp Minh đang trống rỗng!')">
+            <img src="https://icons8.com" alt="Recycle Bin">
             Recycle Bin
+        </div>
+
+        <div id="myWindow" class="window">
+            <div class="title-bar">
+                <span id="winTitle">Cửa sổ</span>
+                <span class="close-btn" onclick="closeWindow()">X</span>
+            </div>
+            <div class="content" id="winContent">Nội dung...</div>
         </div>
     </div>
 
-    <!-- Menu Start Full Screen -->
     <div id="start-menu" onclick="this.style.display='none'">
-        <h1>WINDOWS 10 START MENU (FULL SCREEN)</h1>
-        <p>Chào mừng Đỗ Đức Minh lớp 3B</p>
-        <div style="display: grid; grid-template-columns: repeat(4, 100px); justify-content: center; gap: 20px; padding: 20px;">
-            <div style="background: #0078d7; width: 100px; height: 100px;">Game</div>
-            <div style="background: #0078d7; width: 100px; height: 100px;">Học tập</div>
-            <div style="background: #0078d7; width: 100px; height: 100px;">Ảnh</div>
-            <div style="background: #0078d7; width: 100px; height: 100px;">Nhạc</div>
+        <h1 style="color: #00a2ed;">WINDOWS 10 START MENU</h1>
+        <div style="display: grid; grid-template-columns: repeat(3, 120px); justify-content: center; gap: 20px;">
+            <div style="background:#0078d7; height:120px; display:flex; align-items:center; justify-content:center;">GAME</div>
+            <div style="background:#25a127; height:120px; display:flex; align-items:center; justify-content:center;">HỌC TẬP</div>
+            <div style="background:#e81123; height:120px; display:flex; align-items:center; justify-content:center;">VIDEO</div>
         </div>
-        <p>(Bấm vào bất cứ đâu để đóng)</p>
+        <p style="margin-top:30px;">Bấm bất cứ đâu để quay lại Desktop</p>
     </div>
 
     <div id="taskbar">
-        <!-- Start hình Windows 10 -->
-        <img src="https://flaticon.com" class="task-icon" onclick="document.getElementById('start-menu').style.display='block'">
+        <!-- Start Win 10 -->
+        <img src="https://icons8.com" class="task-icon" onclick="document.getElementById('start-menu').style.display='block'">
         
-        <!-- Các icon không chữ -->
-        <img src="https://flaticon.com" class="task-icon" title="Edge">
-        <img src="https://flaticon.com" class="task-icon" title="File Explorer">
-        <img src="https://flaticon.com" class="task-icon" title="Store">
+        <!-- Apps -->
+        <img src="https://icons8.com" class="task-icon" onclick="openWindow('Microsoft Edge', 'Đang mở trình duyệt của sếp Minh...')">
+        <img src="https://icons8.com" class="task-icon" onclick="openWindow('File Explorer', 'Thư mục cá nhân của Đỗ Đức Minh lớp 3B')">
+        <img src="https://icons8.com" class="task-icon" onclick="openWindow('Microsoft Store', 'Chào mừng đến với cửa hàng của Minh!')">
     </div>
 
+    <script>
+        function openWindow(title, content) {
+            document.getElementById('myWindow').style.display = 'flex';
+            document.getElementById('winTitle').innerText = title;
+            document.getElementById('winContent').innerText = content;
+        }
+        function closeWindow() {
+            document.getElementById('myWindow').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
