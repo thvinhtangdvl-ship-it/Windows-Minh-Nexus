@@ -2,108 +2,91 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows Minh-Nexus - Đỗ Đức Minh 3B</title>
+    <title>Windows Minh-Nexus OS</title>
     <style>
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #000000); /* Màu xanh đen ngầu */
-            color: white;
-            height: 100vh;
-            overflow: hidden;
+            background: #000; /* Nền đen cho chuyên nghiệp */
+            color: #00ff00; /* Chữ màu xanh giống Hacker */
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
-
-        /* Màn hình chính */
+        /* Hiệu ứng tên sếp Minh bay qua bay lại */
+        marquee {
+            font-size: 30px;
+            font-weight: bold;
+            background: rgba(0, 0, 255, 0.2);
+            padding: 10px;
+        }
         #desktop {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            background: radial-gradient(circle, #1a1a1a, #000);
         }
-
-        /* Cửa sổ GitHub lồng nhau */
-        .window {
-            width: 80%;
-            height: 70%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .window-box {
+            width: 90%;
+            height: 80%;
+            border: 2px solid #00ff00;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
-
         .title-bar {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
+            background: #00ff00;
+            color: #000;
+            padding: 5px 15px;
+            font-weight: bold;
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
         }
-
         iframe {
             flex: 1;
             border: none;
+            background: white;
         }
-
-        /* Thanh Taskbar */
+        /* Thanh Taskbar dưới cùng */
         #taskbar {
-            height: 50px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+            height: 45px;
+            background: #333;
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            justify-content: center;
+            padding-left: 10px;
         }
-
-        #start-button {
-            background: #2563eb;
-            border: none;
+        .start-btn {
+            background: #ff0000;
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+            border: none;
+            padding: 5px 15px;
             font-weight: bold;
-            transition: 0.3s;
-        }
-
-        #start-button:hover {
-            background: #3b82f6;
-            transform: scale(1.1);
-        }
-
-        .welcome-msg {
-            position: absolute;
-            top: 20px;
-            font-size: 24px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div id="desktop">
-        <div class="welcome-msg">🚀 Windows Minh-Nexus OS - Đỗ Đức Minh 3B</div>
+    <!-- Chữ bay cho oai -->
+    <marquee>🚀 CHÀO MỪNG ĐẾN VỚI WINDOWS MINH-NEXUS - PHÁT TRIỂN BỞI ĐỖ ĐỨC MINH LỚP 3B 🚀</marquee>
 
-        <!-- Đây là phần GitHub trong GitHub của sếp -->
-        <div class="window">
+    <div id="desktop">
+        <div class="window-box">
             <div class="title-bar">
-                <span>GitHub Browser - Biện Thượng Edition</span>
-                <span>✖ 🗗 ➖</span>
+                <span>GitHub_System_v1.0.exe</span>
+                <span>[ _ □ X ]</span>
             </div>
+            <!-- Chỗ này nhúng GitHub của sếp nè -->
             <iframe src="https://github.com"></iframe>
         </div>
     </div>
 
     <div id="taskbar">
-        <button id="start-button" onclick="alert('Chào sếp Minh 3B! Chúc sếp code giỏi, ăn nem chua ngon nhé!')">M (Start)</button>
+        <button class="start-btn" onclick="alert('Hệ điều hành của sếp Minh đã sẵn sàng!')">MINH START</button>
+        <span style="margin-left: 20px;">Xóm 5 Biện Thượng đang online...</span>
     </div>
 
 </body>
