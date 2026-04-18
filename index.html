@@ -8,35 +8,46 @@
         #boot { position: fixed; inset: 0; background: black; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; font-size: 25px; flex-direction: column; }
         #desktop { height: calc(100vh - 50px); padding: 20px; display: none; position: relative; }
         
-        /* Icon Recycle Bin vẽ bằng mã SVG - Đảm bảo hiện 100% */
-        .item { width: 100px; text-align: center; color: white; font-weight: bold; cursor: pointer; text-shadow: 2px 2px black; font-size: 13px; }
-        .icon-svg { width: 48px; height: 48px; display: block; margin: 0 auto 5px; }
+        /* Icon Recycle Bin hình thật */
+        .item { width: 90px; text-align: center; color: white; font-weight: 500; cursor: pointer; text-shadow: 1px 1px 3px black; font-size: 12px; }
+        .item img { width: 48px; height: 48px; display: block; margin: 0 auto 5px; }
 
-        .window { position: absolute; top: 80px; left: 80px; width: 450px; height: 300px; background: white; border-radius: 12px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 100; border: 1px solid #777; transition: 0.2s; }
-        .bar { background: #f0f0f0; padding: 10px; display: flex; justify-content: space-between; cursor: move; border-radius: 12px 12px 0 0; }
-        .btns span { cursor: pointer; padding: 0 12px; font-weight: bold; font-size: 18px; }
+        /* Cửa sổ bo góc */
+        .window { position: absolute; top: 80px; left: 80px; width: 500px; height: 350px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 12px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 100; border: 1px solid #ccc; transition: 0.2s; }
+        .bar { padding: 10px 15px; display: flex; justify-content: space-between; cursor: move; border-bottom: 1px solid #ddd; }
+        .btns span { cursor: pointer; padding: 0 10px; font-weight: bold; font-size: 16px; }
 
-        #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(0,0,0,0.85); display: none; align-items: center; padding: 0 15px; box-sizing: border-box; }
-        .search-area { background: white; border-radius: 20px; padding: 5px 15px; width: 180px; display: flex; align-items: center; margin-right: 20px; }
-        .search-area input { border: none; outline: none; width: 100%; font-size: 13px; }
-        .task-center { flex: 1; display: flex; justify-content: center; gap: 25px; }
+        /* Start Menu có minh234 và Settings */
+        #start { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 40px; color: white; }
+        .grid { display: grid; grid-template-columns: repeat(3, 110px); gap: 20px; text-align: center; margin-bottom: 30px; }
+        .app { padding: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; }
+        .app:hover { background: rgba(255,255,255,0.1); }
+        .app img { width: 40px; height: 40px; margin-bottom: 5px; }
+        
+        .user-footer { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; width: 400px; display: flex; justify-content: space-between; align-items: center; }
 
-        #start { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 50px; color: white; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center; }
-        .app { border: 1px solid white; padding: 15px; width: 110px; cursor: pointer; background: rgba(255,255,255,0.1); }
-        .user-footer { margin-top: 50px; border-top: 1px solid #555; width: 350px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        /* Taskbar căn giữa */
+        #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(0,0,0,0.7); backdrop-filter: blur(20px); display: none; align-items: center; padding: 0 20px; box-sizing: border-box; }
+        .search-box { background: white; border-radius: 20px; padding: 5px 15px; width: 180px; display: flex; align-items: center; margin-right: 20px; color: #666; font-size: 13px; }
+        .task-center { flex: 1; display: flex; justify-content: center; gap: 15px; }
+        .t-icon { width: 32px; height: 32px; cursor: pointer; transition: 0.2s; }
+        .t-icon:hover { transform: scale(1.1); }
 
-        #sh-screen { position: fixed; inset: 0; background: black; display: none; z-index: 10000; justify-content: center; align-items: center; font-size: 35px; color: white; }
+        #sh-screen { position: fixed; inset: 0; background: black; display: none; z-index: 10000; justify-content: center; align-items: center; font-size: 30px; color: white; }
+        
+        /* Nội dung Settings */
+        .settings-content { display: flex; flex-direction: column; gap: 10px; }
+        .settings-item { background: #eee; padding: 10px; border-radius: 5px; cursor: pointer; color: #333; }
+        .settings-item:hover { background: #ddd; }
     </style>
 </head>
 <body>
 
-<div id="boot">Starting windows minh nexus...</div>
+<div id="boot">🪟 Starting Windows Minh Nexus...</div>
 
 <div id="desktop">
     <div class="item" onclick="openW('Recycle Bin', 'no times')">
-        <!-- Icon Thùng Rác vẽ bằng code -->
-        <svg class="icon-svg" viewBox="0 0 48 48" fill="none" xmlns="http://w3.org"><rect x="10" y="12" width="28" height="30" rx="2" fill="#2196F3"/><path d="M16 12V8h16v4" stroke="white" stroke-width="2"/><path d="M8 12h32" stroke="white" stroke-width="2"/></svg>
+        <img src="https://icons8.com">
         Recycle Bin
     </div>
 
@@ -47,37 +58,44 @@
                 <span onclick="minW()">-</span><span onclick="maxW()">🟦</span><span style="color:red;" onclick="closeW()">X</span>
             </div>
         </div>
-        <div id="wc" style="padding:20px; font-size:20px;"></div>
+        <div id="wc" class="content" style="padding:20px; font-size:17px; color: #333;"></div>
     </div>
 </div>
 
 <div id="start">
-    <h1 style="color:#ffcc00;">START MENU</h1>
+    <h2 style="margin-bottom: 20px;">START MENU</h2>
     <div class="grid">
-        <div class="app" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐<br>Edge</div>
-        <div class="app" onclick="openW('GitHub', '://github.com đã từ chối kết nối.')">📂<br>GitHub</div>
-        <div class="app" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒<br>Store</div>
-        <div class="app" onclick="openW('Explorer', 'no files')">📁<br>Explorer</div>
+        <div class="app" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">
+            <img src="https://icons8.com"><br>Edge</div>
+        <div class="app" onclick="openW('Store', 'chưa có gì ở đây cả😉')">
+            <img src="https://icons8.com"><br>Store</div>
+        <div class="app" onclick="openW('Explorer', 'no files')">
+            <img src="https://icons8.com"><br>Explorer</div>
+        <div class="app" onclick="openSettings()">
+            <img src="https://icons8.com"><br>Settings</div>
+        <div class="app" onclick="openW('GitHub', '://github.com đã từ chối kết nối.')">
+            <img src="https://icons8.com"><br>GitHub</div>
     </div>
+    
     <div class="user-footer">
-        <div style="font-size:20px;">👩‍💻 minh234</div>
+        <div class="user-name">👩‍💻 minh234</div>
         <div style="display:flex; gap:10px;">
-            <button onclick="sd()" style="background:red; color:white; border:none; padding:8px; cursor:pointer;">Shutdown</button>
-            <button onclick="alert('error')" style="padding:8px; cursor:pointer;">Restart</button>
-            <button onclick="alert('error')" style="padding:8px; cursor:pointer;">Sleep</button>
+            <button onclick="sd()" style="padding:5px 10px; cursor:pointer; background:red; color:white; border:none; border-radius:4px;">Shutdown</button>
+            <button onclick="alert('error')" style="padding:5px 10px; cursor:pointer;">Restart</button>
+            <button onclick="alert('error')" style="padding:5px 10px; cursor:pointer;">Sleep</button>
         </div>
     </div>
-    <p onclick="tk()" style="margin-top:20px; cursor:pointer; color:#00ff00;">[ Back to Start Menu ]</p>
+    <p onclick="tk()" style="margin-top:20px; cursor:pointer; color:#00ff00;">[ Back to Desktop ]</p>
 </div>
 
 <div id="taskbar">
-    <div class="search-area"><input type="text" placeholder="🔍 Search minh234..."></div>
+    <div class="search-box">🔍 Search...</div>
     <div class="task-center">
-        <!-- Logo Win 11 chuẩn vẽ bằng code - Đảm bảo hiện 100% -->
-        <svg style="width:30px; cursor:pointer;" onclick="tk()" viewBox="0 0 24 24" fill="#00A4EF"><path d="M0 0h11.2v11.2H0zM12.8 0H24v11.2H12.8zM0 12.8h11.2V24H0zM12.8 12.8H24V24H12.8z"/></svg>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐</span>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Explorer', 'no files')">📁</span>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒</span>
+        <img src="https://icons8.com" class="t-icon" onclick="tk()">
+        <img src="https://icons8.com" class="t-icon" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">
+        <img src="https://icons8.com" class="t-icon" onclick="openW('Explorer', 'no files')">
+        <img src="https://icons8.com" class="t-icon" onclick="openSettings()">
+        <img src="https://icons8.com" class="t-icon" onclick="openW('Store', 'chưa có gì ở đây cả😉')">
     </div>
 </div>
 
@@ -85,16 +103,51 @@
 
 <script>
     setTimeout(() => { document.getElementById('boot').style.display='none'; document.getElementById('desktop').style.display='block'; document.getElementById('taskbar').style.display='flex'; }, 3000);
+    
     function tk() { let m = document.getElementById('start'); m.style.display = (m.style.display === 'flex') ? 'none' : 'flex'; }
-    function openW(t, c) { let w = document.getElementById('win'); w.style.display='flex'; document.getElementById('wt').innerText = t; document.getElementById('wc').innerText = c; document.getElementById('start').style.display='none'; }
+    
+    function openW(t, c) {
+        let w = document.getElementById('win');
+        w.style.display='flex';
+        document.getElementById('wt').innerText = t;
+        document.getElementById('wc').innerHTML = c;
+        document.getElementById('start').style.display='none';
+    }
+
+    function openSettings() {
+        let content = `
+            <div class="settings-content">
+                <h3>Settings</h3>
+                <div class="settings-item" onclick="openUpdate()">Windows Update</div>
+                <div class="settings-item">System</div>
+                <div class="settings-item">Personalization</div>
+            </div>
+        `;
+        openW('Settings', content);
+    }
+
+    function openUpdate() {
+        document.getElementById('wc').innerHTML = `
+            <div style="text-align:center; padding-top:20px;">
+                <img src="https://icons8.com" style="width:50px;"><br>
+                <h2 style="color:red;">❌ no update</h2>
+                <p>Windows Minh-Nexus của sếp đang ở bản mới nhất!</p>
+                <button onclick="openSettings()" style="padding:5px 10px; cursor:pointer;">Quay lại</button>
+            </div>
+        `;
+    }
+
     function closeW() { document.getElementById('win').style.display='none'; }
+    
     function maxW() {
         let w = document.getElementById('win');
-        if (w.style.width === '100%') { w.style.width = '450px'; w.style.height = '300px'; w.style.top = '80px'; w.style.left = '80px'; }
+        if (w.style.width === '100%') { w.style.width = '500px'; w.style.height = '350px'; w.style.top = '80px'; w.style.left = '80px'; }
         else { w.style.width = '100%'; w.style.height = 'calc(100vh - 50px)'; w.style.top = '0'; w.style.left = '0'; }
     }
+
     function minW() { document.getElementById('win').style.display='none'; }
     function sd() { document.getElementById('sh-screen').style.display='flex'; setTimeout(() => { location.reload(); }, 3000); }
+
     var win = document.getElementById("win"); var header = document.getElementById("winH");
     header.onmousedown = function(e) {
         var ox = e.clientX - win.offsetLeft; var oy = e.clientY - win.offsetTop;
