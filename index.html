@@ -8,26 +8,30 @@
         #boot { position: fixed; inset: 0; background: black; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; font-size: 25px; }
         #desktop { height: calc(100vh - 50px); padding: 20px; display: none; position: relative; }
         
-        /* Icon Desktop dùng mã SVG - Đảm bảo hiện 100% */
+        /* Icon Recycle Bin xịn */
         .item { width: 90px; text-align: center; color: white; font-weight: bold; cursor: pointer; text-shadow: 2px 2px black; font-size: 13px; }
-        .icon-svg { width: 50px; height: 50px; display: block; margin: 0 auto 5px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+        .icon-art { font-size: 50px; display: block; margin-bottom: 5px; }
 
-        /* Cửa sổ co giãn thông minh */
-        .window { position: absolute; top: 80px; left: 80px; width: 450px; height: 300px; background: white; border-radius: 8px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 100; border: 1px solid #777; transition: 0.2s; }
-        .bar { background: #f0f0f0; padding: 10px; display: flex; justify-content: space-between; cursor: move; border-radius: 8px 8px 0 0; }
-        .btns span { cursor: pointer; padding: 0 12px; font-weight: bold; font-size: 18px; }
+        /* Cửa sổ Windows 11 */
+        .window { position: absolute; top: 80px; left: 80px; width: 450px; height: 300px; background: white; border-radius: 12px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 100; border: 1px solid #ccc; transition: 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+        .bar { background: #f9f9f9; padding: 10px 15px; display: flex; justify-content: space-between; cursor: move; border-radius: 12px 12px 0 0; }
+        .btns span { cursor: pointer; padding: 0 10px; font-weight: bold; font-size: 16px; }
+        .btns span:hover { background: #eee; border-radius: 4px; }
 
-        /* Taskbar có Tìm kiếm gõ được chữ */
-        #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(0,0,0,0.85); display: none; align-items: center; padding: 0 15px; box-sizing: border-box; }
-        .search-area { background: white; border-radius: 4px; padding: 5px 10px; width: 200px; display: flex; align-items: center; margin-right: 20px; }
-        .search-area input { border: none; outline: none; width: 100%; font-size: 14px; }
-        .task-center { flex: 1; display: flex; justify-content: center; gap: 25px; }
-        .task-icon { width: 35px; height: 35px; cursor: pointer; transition: 0.2s; }
-        .task-icon:hover { transform: scale(1.2); }
+        /* Taskbar Windows 11 với thanh tìm kiếm gõ được */
+        #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); display: none; align-items: center; padding: 0 15px; box-sizing: border-box; }
+        .search-area { background: rgba(255,255,255,0.8); border-radius: 20px; padding: 5px 15px; width: 180px; display: flex; align-items: center; margin-right: 20px; border: 1px solid #ccc; }
+        .search-area input { border: none; outline: none; background: transparent; width: 100%; font-size: 14px; }
+        .task-center { flex: 1; display: flex; justify-content: center; gap: 20px; font-size: 30px; }
+        .win-logo { width: 32px; cursor: pointer; transition: 0.2s; }
+        .win-logo:hover { transform: scale(1.1); }
 
+        /* Start Menu Minecraft */
         #start { position: fixed; inset: 0; background: url('https://wallpaperaccess.com') center/cover; display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 50px; color: white; }
-        #start::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.6); z-index: -1; }
-        
+        #start::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: -1; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center; }
+        .app { border: 1px solid rgba(255,255,255,0.3); padding: 15px; width: 110px; background: rgba(0,0,0,0.3); cursor: pointer; }
+
         #sh-screen { position: fixed; inset: 0; background: black; display: none; z-index: 10000; justify-content: center; align-items: center; font-size: 35px; color: white; }
     </style>
 </head>
@@ -37,9 +41,7 @@
 
 <div id="desktop">
     <div class="item" onclick="openW('Recycle Bin', 'no times')">
-        <!-- Icon Thùng Rác SVG -->
-        <svg class="icon-svg" viewBox="0 0 48 48" fill="none" xmlns="http://w3.org"><path d="M9 10V44H39V10H9Z" fill="#2F88FF" stroke="#333" stroke-width="4"/><path d="M15 10L18 4H30L33 10" stroke="#333" stroke-width="4"/><path d="M4 10H44" stroke="#333" stroke-width="4"/></svg>
-        Recycle Bin
+        <span class="icon-art">🗑️</span>Recycle Bin
     </div>
 
     <div id="win" class="window">
@@ -51,33 +53,39 @@
                 <span style="color:red;" onclick="closeW()">X</span>
             </div>
         </div>
-        <div id="wc" style="padding:20px; font-size:18px;"></div>
+        <div id="wc" style="padding:20px; font-size:18px; color: #333;"></div>
     </div>
 </div>
 
 <div id="start">
     <h1 style="color:#ffcc00; text-shadow: 2px 2px black;">MINECRAFT START</h1>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: center;">
-        <div onclick="openW('Edge', '://bing.com đã từ chối kết nối.')" style="cursor:pointer;">🌐<br>Edge</div>
-        <div onclick="openW('GitHub', 'www.github.com đã từ chối kết nối.')" style="cursor:pointer;">📂<br>GitHub</div>
-        <div onclick="openW('Store', 'chưa có gì ở đây cả😉')" style="cursor:pointer;">🛒<br>Store</div>
-        <div onclick="openW('Explorer', 'no files')" style="cursor:pointer;">📁<br>Explorer</div>
+    <div class="grid">
+        <div class="app" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐<br>Edge</div>
+        <div class="app" onclick="openW('GitHub', '://github.com đã từ chối kết nối.')">📂<br>GitHub</div>
+        <div class="app" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒<br>Store</div>
+        <div class="app" onclick="openW('Explorer', 'no files')">📁<br>Explorer</div>
     </div>
-    <div style="margin-top:50px; display:flex; gap:20px;">
-        <button onclick="sd()" style="padding:10px; background:red; color:white; border:none; cursor:pointer;">Shutting down</button>
-        <button onclick="alert('error')" style="padding:10px; cursor:pointer;">Restart</button>
+    <div style="margin-top:40px; display:flex; gap:15px;">
+        <button onclick="sd()" style="padding:10px 20px; background: #e81123; color: white; border: none; cursor: pointer;">Shutting down</button>
+        <button onclick="alert('error')" style="padding:10px 20px; cursor: pointer;">Restart</button>
+        <button onclick="alert('error')" style="padding:10px 20px; cursor: pointer;">Sleep</button>
     </div>
     <p onclick="tk()" style="margin-top:30px; cursor:pointer; color:#00ff00;">[ Back to Start Menu ]</p>
 </div>
 
 <div id="taskbar">
-    <div class="search-area"><input type="text" placeholder="🔍 Search Minh..."></div>
+    <div class="search-area">
+        <input type="text" placeholder="🔍 Search Minh...">
+    </div>
     <div class="task-center">
-        <!-- Icon Windows 10 SVG -->
-        <svg class="task-icon" onclick="tk()" viewBox="0 0 48 48" fill="none" xmlns="http://w3.org"><path d="M6 6L21 8.25V23H6V6Z" fill="#0078D4"/><path d="M24 7.8L42 5V23H24V7.8Z" fill="#0078D4"/><path d="M6 25H21V39.75L6 42V25Z" fill="#0078D4"/><path d="M24 25H42V43L24 40.2V25Z" fill="#0078D4"/></svg>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐</span>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Explorer', 'no files')">📁</span>
-        <span style="font-size:30px; cursor:pointer;" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒</span>
+        <!-- Logo Windows 11 xịn dùng mã SVG cực bền -->
+        <svg class="win-logo" onclick="tk()" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+            <path d="M1 1H11V11H1V1Z" fill="#00A4EF"/><path d="M13 1H23V11H13V1Z" fill="#00A4EF"/>
+            <path d="M1 13H11V23H1V13Z" fill="#00A4EF"/><path d="M13 13H23V23H13V13Z" fill="#00A4EF"/>
+        </svg>
+        <span style="cursor:pointer;" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐</span>
+        <span style="cursor:pointer;" onclick="openW('Explorer', 'no files')">📁</span>
+        <span style="cursor:pointer;" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒</span>
     </div>
 </div>
 
@@ -105,26 +113,33 @@
 
     function closeW() { document.getElementById('win').style.display='none'; }
     
-    // Nút 🟦: Bấm 1 lần to, bấm lần nữa nhỏ
+    // Sửa lỗi nút 🟦: Bấm 1 lần phóng to, bấm lần nữa thu nhỏ
     function maxW() {
         let w = document.getElementById('win');
         if (w.style.width === '100%') {
-            w.style.width = '450px'; w.style.height = '300px';
-            w.style.top = '80px'; w.style.left = '80px';
+            w.style.width = '450px'; 
+            w.style.height = '300px';
+            w.style.top = '80px'; 
+            w.style.left = '80px';
         } else {
-            w.style.width = '100%'; w.style.height = 'calc(100vh - 50px)';
-            w.style.top = '0'; w.style.left = '0';
+            w.style.width = '100%'; 
+            w.style.height = 'calc(100vh - 50px)';
+            w.style.top = '0'; 
+            w.style.left = '0';
         }
     }
 
-    function minW() { document.getElementById('win').style.display='none'; }
+    function minW() { 
+        document.getElementById('win').style.display = 'none'; 
+        alert('Cửa sổ đã thu nhỏ xuống Taskbar của sếp Minh!');
+    }
 
     function sd() {
         document.getElementById('sh-screen').style.display='flex';
         setTimeout(() => { location.reload(); }, 3000);
     }
 
-    // Kéo thả mượt mà
+    // Kéo thả cửa sổ mượt mà
     var win = document.getElementById("win");
     var header = document.getElementById("winH");
     header.onmousedown = function(e) {
