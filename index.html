@@ -2,58 +2,44 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Windows Minh-Nexus Pro (Minh234)</title>
+    <title>Windows Minh-Nexus - minh234</title>
     <style>
-        /* Nền Vàng Hồng chuẩn gu sếp Minh */
-        body { margin: 0; background: linear-gradient(135deg, #ffcc00, #ff66cc); font-family: 'Segoe UI Variable', sans-serif; height: 100vh; overflow: hidden; }
-        
-        /* Khởi động oai */
+        body { margin: 0; background: linear-gradient(135deg, #ffcc00, #ff66cc); font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; }
         #boot { position: fixed; inset: 0; background: black; z-index: 9999; display: flex; justify-content: center; align-items: center; color: white; font-size: 25px; flex-direction: column; }
-        
         #desktop { height: calc(100vh - 50px); padding: 20px; display: none; position: relative; }
+        
+        /* Icon Recycle Bin vẽ bằng code */
         .item { width: 90px; text-align: center; color: white; font-weight: 500; cursor: pointer; text-shadow: 1px 1px 3px black; font-size: 12px; }
-        .item img { width: 48px; height: 48px; display: block; margin: 0 auto 5px; }
+        .icon-svg { width: 48px; height: 48px; display: block; margin: 0 auto 5px; }
 
-        /* Cửa sổ Windows 11 (Bo góc) */
-        .window { position: absolute; top: 80px; left: 80px; width: 450px; height: 300px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 10px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 100; border: 1px solid rgba(255,255,255,0.5); transition: 0.2s; }
-        .bar { padding: 10px; display: flex; justify-content: space-between; cursor: move; border-radius: 10px 10px 0 0; }
-        .btns span { cursor: pointer; padding: 0 12px; font-weight: bold; font-size: 16px; border-radius: 4px; }
-        .btns span:hover { background: rgba(0,0,0,0.1); }
+        .window { position: absolute; top: 80px; left: 80px; width: 450px; height: 300px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 12px; display: none; flex-direction: column; color: black; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 100; border: 1px solid #ccc; transition: 0.2s; }
+        .bar { padding: 10px 15px; display: flex; justify-content: space-between; cursor: move; }
+        .btns span { cursor: pointer; padding: 0 10px; font-weight: bold; font-size: 16px; }
 
-        /* Taskbar Windows 11 căn giữa + Thanh tìm kiếm */
-        #taskbar { position: fixed; bottom: 0; width: 100%; height: 48px; background: rgba(255,255,255,0.2); backdrop-filter: blur(20px); display: none; align-items: center; padding: 0 15px; box-sizing: border-box; }
-        .search-win11 { background: white; border-radius: 20px; padding: 4px 15px; width: 180px; display: flex; align-items: center; margin-right: 20px; border: 1px solid #ddd; }
-        .search-win11 input { border: none; outline: none; background: transparent; width: 100%; font-size: 13px; }
-        .task-center { flex: 1; display: flex; justify-content: center; gap: 12px; }
-        .t-icon { width: 32px; height: 32px; cursor: pointer; transition: 0.1s; }
-        .t-icon:hover { transform: scale(1.1); background: rgba(255,255,255,0.3); border-radius: 5px; }
+        /* Start Menu chuẩn 11 */
+        #start { position: fixed; inset: 0; background: url('https://wallpaperaccess.com') center/cover; display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 50px; color: white; }
+        #start::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.75); z-index: -1; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; text-align: center; margin-bottom: 30px; }
+        .app { border: 1px solid rgba(255,255,255,0.2); padding: 15px; width: 120px; background: rgba(255,255,255,0.1); cursor: pointer; border-radius: 8px; }
+        .user-footer { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; width: 350px; display: flex; justify-content: space-between; align-items: center; }
 
-        /* Start Menu Windows 11 có Minecraft + Tên Minh234 */
-        #start { position: fixed; inset: 0; background: url('https://wallpaperaccess.com') center/cover; display: none; z-index: 1000; flex-direction: column; align-items: center; padding-top: 40px; color: white; }
-        #start::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: -1; }
-        .user-info { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center; }
-        .app { border: 1px solid rgba(255,255,255,0.2); padding: 12px; width: 110px; background: rgba(255,255,255,0.05); cursor: pointer; border-radius: 8px; }
-        .app:hover { background: rgba(255,255,255,0.1); }
-
-        .power-menu { display: flex; gap: 15px; margin-top: 40px; }
-        .p-btn { padding: 8px 15px; border: 1px solid white; cursor: pointer; border-radius: 5px; background: transparent; color: white; }
-        .p-btn:hover { background: white; color: black; }
+        #taskbar { position: fixed; bottom: 0; width: 100%; height: 50px; background: rgba(0,0,0,0.6); backdrop-filter: blur(20px); display: none; align-items: center; padding: 0 20px; box-sizing: border-box; }
+        .search-box { background: white; border-radius: 20px; padding: 5px 15px; width: 180px; display: flex; align-items: center; margin-right: 20px; color: #666; font-size: 13px; }
+        .task-center { flex: 1; display: flex; justify-content: center; gap: 15px; }
+        .t-icon { width: 32px; height: 32px; cursor: pointer; }
 
         #sh-screen { position: fixed; inset: 0; background: black; display: none; z-index: 10000; justify-content: center; align-items: center; font-size: 30px; color: white; }
     </style>
 </head>
 <body>
 
-<div id="boot">
-    <div style="font-size: 50px; margin-bottom: 10px;">🪟</div>
-    Starting Windows Minh Nexus...
-</div>
+<div id="boot">Starting Windows Minh Nexus...</div>
 
 <div id="desktop">
-    <!-- Icon Thùng rác Windows 11 chuẩn -->
     <div class="item" onclick="openW('Recycle Bin', 'no times')">
-        <img src="https://icons8.com">Recycle Bin
+        <!-- Icon Thùng Rác vẽ bằng code -->
+        <svg class="icon-svg" viewBox="0 0 48 48" fill="none" xmlns="http://w3.org"><path d="M9 10V44H39V10H9Z" fill="#2F88FF" stroke="#333" stroke-width="2"/><path d="M15 10L18 4H30L33 10" stroke="#333" stroke-width="2"/><path d="M4 10H44" stroke="#333" stroke-width="2"/></svg>
+        Recycle Bin
     </div>
 
     <div id="win" class="window">
@@ -65,44 +51,38 @@
                 <span style="color:red;" onclick="closeW()">X</span>
             </div>
         </div>
-        <div id="wc" style="padding:20px; font-size:16px; color: #333; line-height: 1.5;"></div>
+        <div id="wc" style="padding:20px; font-size:17px; color: #333;"></div>
     </div>
 </div>
 
 <div id="start">
-    <div class="user-info">
-        <span style="font-size: 24px;">👩‍💻</span>
-        <span style="font-weight: bold;">minh234</span>
-    </div>
-    <h2 style="color:#ffcc00; margin-bottom: 20px;">PINNED APPS</h2>
+    <h2 style="margin-bottom: 30px;">START MENU</h2>
     <div class="grid">
-        <div class="app" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">
-            <img src="https://icons8.com"><br>Edge</div>
-        <div class="app" onclick="openW('GitHub', '://github.com đã từ chối kết nối.')">
-            <img src="https://icons8.com"><br>GitHub</div>
-        <div class="app" onclick="openW('Store', 'chưa có gì ở đây cả😉')">
-            <img src="https://icons8.com"><br>Store</div>
-        <div class="app" onclick="openW('Explorer', 'no files')">
-            <img src="https://icons8.com"><br>Explorer</div>
+        <div class="app" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐<br>Edge</div>
+        <div class="app" onclick="openW('GitHub', '://github.com đã từ chối kết nối.')">📂<br>GitHub</div>
+        <div class="app" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒<br>Store</div>
+        <div class="app" onclick="openW('Explorer', 'no files')">📁<br>Explorer</div>
     </div>
-    <div class="power-menu">
-        <button class="p-btn" onclick="sd()">Shutdown</button>
-        <button class="p-btn" onclick="alert('error')">Restart</button>
-        <button class="p-btn" onclick="alert('error')">Sleep</button>
+    
+    <div class="user-footer">
+        <div class="user-name">👤 minh234</div>
+        <div style="display:flex; gap:10px;">
+            <button onclick="sd()" style="padding:5px 10px; cursor:pointer;">Shutdown</button>
+            <button onclick="alert('error')" style="padding:5px 10px; cursor:pointer;">Restart</button>
+            <button onclick="alert('error')" style="padding:10px; cursor:pointer;">Sleep</button>
+        </div>
     </div>
     <p onclick="tk()" style="margin-top:30px; cursor:pointer; color:#00ff00;">[ Back to Desktop ]</p>
 </div>
 
 <div id="taskbar">
-    <div class="search-win11">
-        🔍 <input type="text" placeholder="Search for apps...">
-    </div>
+    <div class="search-box">🔍 Type to search...</div>
     <div class="task-center">
-        <!-- Logo Windows 11 chuẩn (Hình vuông) -->
-        <img src="https://icons8.com" class="t-icon" onclick="tk()">
-        <img src="https://icons8.com" class="t-icon" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">
-        <img src="https://icons8.com" class="t-icon" onclick="openW('Explorer', 'no files')">
-        <img src="https://icons8.com" class="t-icon" onclick="openW('Store', 'chưa có gì ở đây cả😉')">
+        <!-- Logo Win 11 chuẩn vẽ bằng code -->
+        <svg class="t-icon" onclick="tk()" viewBox="0 0 24 24" fill="#00A4EF"><path d="M0 0h11.5v11.5H0zM12.5 0H24v11.5H12.5zM0 12.5h11.5V24H0zM12.5 12.5H24V24H12.5z"/></svg>
+        <span style="font-size:30px; cursor:pointer;" onclick="openW('Edge', '://bing.com đã từ chối kết nối.')">🌐</span>
+        <span style="font-size:30px; cursor:pointer;" onclick="openW('Explorer', 'no files')">📁</span>
+        <span style="font-size:30px; cursor:pointer;" onclick="openW('Store', 'chưa có gì ở đây cả😉')">🛒</span>
     </div>
 </div>
 
@@ -123,8 +103,6 @@
     function openW(t, c) {
         let w = document.getElementById('win');
         w.style.display='flex';
-        w.style.width='450px'; w.style.height='300px';
-        w.style.top='80px'; w.style.left='80px';
         document.getElementById('wt').innerText = t;
         document.getElementById('wc').innerText = c;
         document.getElementById('start').style.display='none';
@@ -138,19 +116,18 @@
             w.style.width = '450px'; w.style.height = '300px';
             w.style.top = '80px'; w.style.left = '80px';
         } else {
-            w.style.width = '100%'; w.style.height = 'calc(100vh - 48px)';
+            w.style.width = '100%'; w.style.height = 'calc(100vh - 50px)';
             w.style.top = '0'; w.style.left = '0';
         }
     }
 
-    function minW() { document.getElementById('win').style.display='none'; alert('Minh234: Cửa sổ đã thu nhỏ!'); }
+    function minW() { document.getElementById('win').style.display='none'; }
 
     function sd() {
         document.getElementById('sh-screen').style.display='flex';
         setTimeout(() => { location.reload(); }, 3000);
     }
 
-    // Kéo thả
     var win = document.getElementById("win");
     var header = document.getElementById("winH");
     header.onmousedown = function(e) {
